@@ -57,9 +57,17 @@
 	</repository>
 </repositories>
 
+
+
 <properties>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
+
+  
+  <sonar.organization>ayusocarlos</sonar.organization>
+  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+  <sonar.projectKey>AyusoCarlos_Bets21</sonar.projectKey>
+  <sonar.login>67dd3371b75c7a69917ac8c999d5df8fe4912068</sonar.login>
 </properties>
 
 <!-- https://mvnrepository.com/artifact/junit/junit -->
@@ -120,6 +128,14 @@
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
 		</dependency>		
+
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>3.0.0</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
