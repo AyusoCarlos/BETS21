@@ -198,23 +198,28 @@ public class DataAccess  {
 	 * @return the created question, or null, or an exception
  	 * @throws QuestionAlreadyExist if the same question already exists for the event
 	 */
-	public Question createQuestion(Event event, String question) throws  QuestionAlreadyExist {
-		System.out.println(">> DataAccess: createQuestion=> event= "+event+" question= "+question);
-		
-			Event ev = db.find(Event.class, event.getEventNumber());
-			
-			if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
-			
-			db.getTransaction().begin();
-			Question q = ev.addQuestion(question);
-			//db.persist(q);
-			
-			db.persist(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
-							// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-			db.getTransaction().commit();
-			return q;
-		
-	}
+	public Question createQuestion(Event event, String question) throws QuestionAlreadyExist {
+        System.out.println(">> DataAccess: createQuestion=> event= " + event + " question= " + question);
+        if (event != null) {
+            Event ev = db.find(Event.class, event.getEventNumber());
+            if (question != null) {
+                if (ev.DoesQuestionExists(question))
+                    throw new QuestionAlreadyExist(
+                            ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
+
+                db.getTransaction().begin();
+                Question q = ev.addQuestion(question);
+                // db.persist(q);
+
+                db.persist(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions
+                                // property of Event class
+                                // @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+                db.getTransaction().commit();
+                return q;
+            }
+        }
+        return null;
+    }
 	
 	
 	
@@ -486,16 +491,21 @@ public Vector<Tarjeta> getAllTarjetas(User usuario){
 	return que.getTarjetas();
 }
 public void actualizarMonedero(User usuario, float dinero, boolean resu) {
-	db.getTransaction().begin();
-	User U= db.find(User.class, usuario.getUser());
-	if(resu==true) {
-		U.setMonedero(U.getMonedero()+ dinero);
-	}else {
-		U.setMonedero(U.getMonedero()- dinero);
-	}
-	
-	db.persist(U);
-	db.getTransaction().commit();
+    db.getTransaction().begin();
+    if (usuario != null) {
+        User U = db.find(User.class, usuario.getUser());
+        if (dinero > 0) {
+            if (resu) {
+                U.setMonedero(U.getMonedero() + dinero);
+            } else {
+                U.setMonedero(U.getMonedero() - dinero);
+            }
+
+            db.persist(U);
+            
+        }
+    }
+    db.getTransaction().commit();
 }
 public float sacarMonedero(User usuario) {
 	
