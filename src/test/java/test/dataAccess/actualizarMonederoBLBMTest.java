@@ -38,7 +38,6 @@ public class actualizarMonederoBLBMTest {
 	DataAccess dataAccess = Mockito.mock(DataAccess.class);
 	User mockedUser = Mockito.mock(User.class);
 
-	
 	@InjectMocks
 	BLFacade sut = new BLFacadeImplementation(dataAccess);
 
@@ -49,10 +48,11 @@ public class actualizarMonederoBLBMTest {
 			// define parámetros
 			float dinero = 1;
 			boolean resu = false;
-			User usuario= new User("prueba", "prueba2",false);
+			User usuario = new User("prueba", "prueba2", false);
 			// configure Mock para que devuelva un usuario nulo
 			Mockito.doReturn("prueba").when(mockedUser).getUser();
-			Mockito.doNothing().when(dataAccess).actualizarMonedero(Mockito.any(User.class),Mockito.anyFloat(),Mockito.anyBoolean());
+			Mockito.doNothing().when(dataAccess).actualizarMonedero(Mockito.any(User.class), Mockito.anyFloat(),
+					Mockito.anyBoolean());
 
 			// invoke System Under Test (sut)
 			sut.actualizarMonedero(usuario, dinero, resu);
@@ -77,7 +77,8 @@ public class actualizarMonederoBLBMTest {
 			boolean resu = false;
 
 			// configure Mock para que devuelva un usuario nulo
-			Mockito.doNothing().when(dataAccess).actualizarMonedero(ArgumentMatchers.isNull(),Mockito.anyFloat(),Mockito.anyBoolean());
+			Mockito.doNothing().when(dataAccess).actualizarMonedero(ArgumentMatchers.isNull(), Mockito.anyFloat(),
+					Mockito.anyBoolean());
 
 			// invoke System Under Test (sut)
 			sut.actualizarMonedero(null, dinero, resu);
@@ -101,7 +102,8 @@ public class actualizarMonederoBLBMTest {
 
 			// configure Mock para que devuelva un usuario nulo
 			Mockito.doReturn("Carlos").when(mockedUser).getUser();
-			Mockito.doNothing().when(dataAccess).actualizarMonedero(Mockito.any(User.class),Mockito.anyFloat(),Mockito.anyBoolean());
+			Mockito.doNothing().when(dataAccess).actualizarMonedero(Mockito.any(User.class), Mockito.anyFloat(),
+					Mockito.anyBoolean());
 
 			// invoke System Under Test (sut)
 			sut.actualizarMonedero(mockedUser, dinero, resu);
@@ -125,7 +127,8 @@ public class actualizarMonederoBLBMTest {
 
 			// configure Mock para que devuelva un usuario nulo
 			Mockito.doReturn("Carlos").when(mockedUser).getUser();
-			Mockito.doNothing().when(dataAccess).actualizarMonedero(Mockito.any(User.class),Mockito.anyFloat(),Mockito.anyBoolean());
+			Mockito.doNothing().when(dataAccess).actualizarMonedero(Mockito.any(User.class), Mockito.anyFloat(),
+					Mockito.anyBoolean());
 
 			// invoke System Under Test (sut)
 			sut.actualizarMonedero(mockedUser, dinero, resu);
@@ -141,7 +144,7 @@ public class actualizarMonederoBLBMTest {
 	}
 
 	@Test
-	//Dinero es positivo
+	// Dinero es positivo
 	public void test5() {
 		try {
 
@@ -150,7 +153,8 @@ public class actualizarMonederoBLBMTest {
 
 			// configure Mock para que devuelva un usuario nulo
 			Mockito.doReturn("Carlos").when(mockedUser).getUser();
-			Mockito.doNothing().when(dataAccess).actualizarMonedero(Mockito.any(User.class),Mockito.anyFloat(),Mockito.anyBoolean());
+			Mockito.doNothing().when(dataAccess).actualizarMonedero(Mockito.any(User.class), Mockito.anyFloat(),
+					Mockito.anyBoolean());
 
 			// invoke System Under Test (sut)
 			sut.actualizarMonedero(mockedUser, dinero, resu);
@@ -159,8 +163,7 @@ public class actualizarMonederoBLBMTest {
 //			ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
 
 			Mockito.verify(dataAccess, Mockito.times(1)).actualizarMonedero(mockedUser, dinero, resu);
-		
-			
+
 		} catch (Exception e) {
 			fail();
 		}
